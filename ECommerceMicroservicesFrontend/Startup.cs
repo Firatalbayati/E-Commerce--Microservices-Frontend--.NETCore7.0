@@ -1,4 +1,6 @@
 using ECommerceMicroservicesFrontend.Models;
+using ECommerceMicroservicesFrontend.Services;
+using ECommerceMicroservicesFrontend.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -25,6 +27,8 @@ namespace ECommerceMicroservicesFrontend
         {
             services.Configure<ServiceApiSettings>(Configuration.GetSection("ServiceApiSettings"));
             services.Configure<ClientSettings>(Configuration.GetSection("ClientSettings"));
+            services.AddHttpContextAccessor();
+            services.AddHttpClient<IIdentityService, IdentityService>();
             services.AddControllersWithViews();
         }
 
