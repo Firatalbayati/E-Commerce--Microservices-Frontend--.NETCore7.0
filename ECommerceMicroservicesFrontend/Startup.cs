@@ -38,6 +38,12 @@ namespace ECommerceMicroservicesFrontend
                 opts.SlidingExpiration = true; //her defasında süresi uzasın
                 opts.Cookie.Name = "mycookie"; 
             });
+
+            var serviceApiSettings = Configuration.GetSection("ServiceApiSettings").Get<ServiceApiSettings>();
+            services.AddHttpClient<IUserService, UserService>(opt =>
+             {
+                 opt.BaseAddress = new Uri(serviceApiSettings.IdentityBaseUri);
+             });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
