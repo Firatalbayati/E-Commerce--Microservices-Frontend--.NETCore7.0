@@ -1,6 +1,7 @@
-using ECommerceMicroservicesFrontend.Models;
+﻿using ECommerceMicroservicesFrontend.Models;
 using ECommerceMicroservicesFrontend.Services;
 using ECommerceMicroservicesFrontend.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -30,6 +31,13 @@ namespace ECommerceMicroservicesFrontend
             services.AddHttpContextAccessor();
             services.AddHttpClient<IIdentityService, IdentityService>();
             services.AddControllersWithViews();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, opts =>
+            {
+                opts.LoginPath = "/Auth/SignIn";
+                opts.ExpireTimeSpan = TimeSpan.FromDays(60); //60 gün
+                opts.SlidingExpiration = true; //her defasında süresi uzasın
+                opts.Cookie.Name = "mycookie"; 
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,6 +55,7 @@ namespace ECommerceMicroservicesFrontend
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
