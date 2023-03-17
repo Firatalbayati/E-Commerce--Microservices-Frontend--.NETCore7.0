@@ -45,7 +45,10 @@ namespace ECommerceMicroservicesFrontend
              {
                  opt.BaseAddress = new Uri(serviceApiSettings.IdentityBaseUri);
              }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+
+            services.AddScoped<ResourceOwnerPasswordTokenHandler>();
         }
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
