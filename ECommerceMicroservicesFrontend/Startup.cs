@@ -1,4 +1,5 @@
-﻿using ECommerceMicroservicesFrontend.Models;
+﻿using ECommerceMicroservicesFrontend.Handler;
+using ECommerceMicroservicesFrontend.Models;
 using ECommerceMicroservicesFrontend.Services;
 using ECommerceMicroservicesFrontend.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -43,7 +44,7 @@ namespace ECommerceMicroservicesFrontend
             services.AddHttpClient<IUserService, UserService>(opt =>
              {
                  opt.BaseAddress = new Uri(serviceApiSettings.IdentityBaseUri);
-             });
+             }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
