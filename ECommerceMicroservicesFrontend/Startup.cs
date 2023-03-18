@@ -1,4 +1,5 @@
-﻿using ECommerceMicroservicesFrontend.Handler;
+﻿using ECommerce.Shared.Services;
+using ECommerceMicroservicesFrontend.Handler;
 using ECommerceMicroservicesFrontend.Models;
 using ECommerceMicroservicesFrontend.Services;
 using ECommerceMicroservicesFrontend.Services.Interfaces;
@@ -29,28 +30,35 @@ namespace ECommerceMicroservicesFrontend
         {
             services.Configure<ServiceApiSettings>(Configuration.GetSection("ServiceApiSettings"));
             services.Configure<ClientSettings>(Configuration.GetSection("ClientSettings"));
+
             services.AddHttpContextAccessor();
+            services.AddAccessTokenManagement();
+            services.AddHttpClient<IClientCredentialTokenService, ClientCredentialTokenService>();
             services.AddHttpClient<IIdentityService, IdentityService>();
-            services.AddControllersWithViews();
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, opts =>
-            {
-                opts.LoginPath = "/Auth/SignIn";
-                opts.ExpireTimeSpan = TimeSpan.FromDays(60); //60 gün
-                opts.SlidingExpiration = true; //her defasında süresi uzasın
-                opts.Cookie.Name = "mycookie"; 
-            });
+
+            services.AddScoped<ISharedIdentityService, SharedIdentityService>();
+            services.AddScoped<ResourceOwnerPasswordTokenHandler>();
+            services.AddScoped<ClientCredentialTokenHandler>();
 
             var serviceApiSettings = Configuration.GetSection("ServiceApiSettings").Get<ServiceApiSettings>();
             services.AddHttpClient<IUserService, UserService>(opt =>
-             {
-                 opt.BaseAddress = new Uri(serviceApiSettings.IdentityBaseUri);
-             }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
-
-            services.AddScoped<ResourceOwnerPasswordTokenHandler>();
+            {
+                opt.BaseAddress = new Uri(serviceApiSettings.IdentityBaseUri);
+            }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
 
             services.AddHttpClient<ICatalogService, CatalogService>(opt =>
             {
                 opt.BaseAddress = new Uri($"{serviceApiSettings.GatewayBaseUri}/{serviceApiSettings.Catalog.Path}");
+            }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
+
+            services.AddControllersWithViews();
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, opts =>
+            {
+                opts.LoginPath = "/Auth/SignIn";
+                opts.ExpireTimeSpan = TimeSpan.FromDays(60);
+                opts.SlidingExpiration = true;
+                opts.Cookie.Name = "mycookie"; 
             });
         }
 
