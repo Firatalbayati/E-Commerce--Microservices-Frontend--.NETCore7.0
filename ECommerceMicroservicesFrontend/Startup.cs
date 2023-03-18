@@ -47,6 +47,11 @@ namespace ECommerceMicroservicesFrontend
              }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
 
             services.AddScoped<ResourceOwnerPasswordTokenHandler>();
+
+            services.AddHttpClient<ICatalogService, CatalogService>(opt =>
+            {
+                opt.BaseAddress = new Uri($"{serviceApiSettings.GatewayBaseUri}/{serviceApiSettings.Catalog.Path}");
+            });
         }
 
 
