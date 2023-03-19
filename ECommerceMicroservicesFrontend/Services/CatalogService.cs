@@ -38,7 +38,7 @@ namespace ECommerceMicroservicesFrontend.Services
         public async Task<List<CategoryViewModel>> GetAllCategoryAsync()
         {
             //http:localhost:5000/services/catalog/categories
-            var response = await _client.GetAsync("categories");
+            var response = await _client.GetAsync("categories/GetAll");
 
             if (!response.IsSuccessStatusCode)
             {
@@ -53,7 +53,7 @@ namespace ECommerceMicroservicesFrontend.Services
         public async Task<List<CourseViewModel>> GetAllCourseByUserIdAsync(string userId)
         {
             //[controller]/GetAllByUserId/{userId}
-            var response = await _client.GetAsync($"courses/GetAllByUserId/{userId}");
+            var response = await _client.GetAsync($"courses/GetAllByUserId?userid={userId}");
 
             if (!response.IsSuccessStatusCode)
             {
@@ -68,7 +68,7 @@ namespace ECommerceMicroservicesFrontend.Services
         public async Task<CourseViewModel> GetByCourseId(string courseId)
         {
             //[controller]/{userId}
-            var response = await _client.GetAsync($"courses/{courseId}");
+            var response = await _client.GetAsync($"courses?courseId={courseId}");
 
             if (!response.IsSuccessStatusCode)
             {
@@ -83,7 +83,7 @@ namespace ECommerceMicroservicesFrontend.Services
         public async Task<bool> CreateCourseAsync(CourseCreateInput courseCreateInput)
         {
             //[controller]
-            var response = await _client.PostAsJsonAsync<CourseCreateInput>("courses", courseCreateInput);
+            var response = await _client.PostAsJsonAsync<CourseCreateInput>("courses/Create", courseCreateInput);
 
             return response.IsSuccessStatusCode;
         }
@@ -91,7 +91,7 @@ namespace ECommerceMicroservicesFrontend.Services
         public async Task<bool> UpdateCourseAsync(CourseUpdateInput courseUpdateInput)
         {
             //[controller]
-            var response = await _client.PutAsJsonAsync<CourseUpdateInput>("courses", courseUpdateInput);
+            var response = await _client.PutAsJsonAsync<CourseUpdateInput>("courses/Update", courseUpdateInput);
 
             return response.IsSuccessStatusCode;
         }
@@ -99,7 +99,7 @@ namespace ECommerceMicroservicesFrontend.Services
         public async Task<bool> DeleteCourseAsync(string courseId)
         {
             //[controller]/{courseId}
-            var response = await _client.DeleteAsync($"courses/{courseId}");
+            var response = await _client.DeleteAsync($"courses/Delete?=courseId{courseId}");
 
             return response.IsSuccessStatusCode;
         }
