@@ -32,9 +32,7 @@ namespace ECommerceMicroservicesFrontend.Services
             var currentToken = await _clientAccessTokenCache.GetAsync("WebClientToken");
 
             if (currentToken != null)
-            {
                 return currentToken.AccessToken;
-            }
 
             var disco = await _httpClient.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
             {
@@ -43,9 +41,7 @@ namespace ECommerceMicroservicesFrontend.Services
             });
 
             if (disco.IsError)
-            {
                 throw disco.Exception;
-            }
             
             var clientCredentialTokenRequest = new ClientCredentialsTokenRequest
             {
@@ -57,9 +53,7 @@ namespace ECommerceMicroservicesFrontend.Services
             var newToken = await _httpClient.RequestClientCredentialsTokenAsync(clientCredentialTokenRequest);
 
             if (newToken.IsError)
-            {
                 throw newToken.Exception;
-            }
 
             await _clientAccessTokenCache.SetAsync("WebClientToken", newToken.AccessToken, newToken.ExpiresIn);
 

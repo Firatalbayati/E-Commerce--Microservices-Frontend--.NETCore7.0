@@ -26,9 +26,7 @@ namespace ECommerceMicroservicesFrontend.Handler
             var response = await base.SendAsync(request, cancellationToken);
 
             if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
-            {
                 throw new UnAuthorizeException();
-            }
 
             return response;
         }

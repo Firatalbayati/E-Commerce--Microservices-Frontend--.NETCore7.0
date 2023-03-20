@@ -42,9 +42,7 @@ namespace ECommerceMicroservicesFrontend.Services
             });
 
             if (disco.IsError)
-            {
                 throw disco.Exception;
-            }
 
             var passwordTokenRequest = new PasswordTokenRequest
             {
@@ -75,9 +73,7 @@ namespace ECommerceMicroservicesFrontend.Services
             var userInfo = await _httpClient.GetUserInfoAsync(userInfoRequest);
 
             if (userInfo.IsError)
-            {
                 throw userInfo.Exception;
-            }
 
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(userInfo.Claims, CookieAuthenticationDefaults.AuthenticationScheme, "name", "role");
 
@@ -108,9 +104,7 @@ namespace ECommerceMicroservicesFrontend.Services
             });
 
             if (disco.IsError)
-            {
                 throw disco.Exception;
-            }
 
             var refreshToken = await _httpContextAccessor.HttpContext.GetTokenAsync(OpenIdConnectParameterNames.RefreshToken);
 
@@ -125,9 +119,7 @@ namespace ECommerceMicroservicesFrontend.Services
             var token = await _httpClient.RequestRefreshTokenAsync(refreshTokenRequest);
 
             if (token.IsError)
-            {
                 return null;
-            }
 
             var authenticationTokens = new List<AuthenticationToken>()
             {

@@ -25,9 +25,7 @@ namespace ECommerceMicroservicesFrontend.Services
             var response = await _client.GetAsync("courses/GetAll");
 
             if (!response.IsSuccessStatusCode)
-            {
                 return null;
-            }
 
             var responseSuccess = await response.Content.ReadFromJsonAsync<Response<List<CourseViewModel>>>();
 
@@ -41,9 +39,7 @@ namespace ECommerceMicroservicesFrontend.Services
             var response = await _client.GetAsync("categories/GetAll");
 
             if (!response.IsSuccessStatusCode)
-            {
                 return null;
-            }
 
             var responseSuccess = await response.Content.ReadFromJsonAsync<Response<List<CategoryViewModel>>>();
 
@@ -55,9 +51,7 @@ namespace ECommerceMicroservicesFrontend.Services
             var response = await _client.GetAsync($"courses/GetAllByUserId?userid={userId}");
 
             if (!response.IsSuccessStatusCode)
-            {
                 return null;
-            }
 
             var responseSuccess = await response.Content.ReadFromJsonAsync<Response<List<CourseViewModel>>>();
 
@@ -69,9 +63,7 @@ namespace ECommerceMicroservicesFrontend.Services
             var response = await _client.GetAsync($"courses/GetById?id={courseId}");
 
             if (!response.IsSuccessStatusCode)
-            {
                 return null;
-            }
 
             var responseSuccess = await response.Content.ReadFromJsonAsync<Response<CourseViewModel>>();
 

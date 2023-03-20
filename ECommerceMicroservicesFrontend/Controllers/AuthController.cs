@@ -29,9 +29,7 @@ namespace ECommerceMicroservicesFrontend.Controllers
         {
 
             if (!ModelState.IsValid)
-            {
                 return View();
-            }
 
             var response = await _identityService.SignIn(signinInput);
 
