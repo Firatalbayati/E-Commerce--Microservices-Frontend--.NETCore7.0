@@ -1,4 +1,5 @@
 ﻿using ECommerceMicroservicesFrontend.Models;
+using ECommerceMicroservicesFrontend.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -13,19 +14,22 @@ namespace ECommerceMicroservicesFrontend.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly ICatalogService _catalogService;
+
+        public HomeController(ILogger<HomeController> logger, ICatalogService catalogService)
         {
             _logger = logger;
+            _catalogService = catalogService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            return View(await _catalogService.GetAllCourseAsync());
         }
 
-        public IActionResult Privacy()
+        public async Task<IActionResult> Detail(string id)
         {
-            return View();
+            return View(await _catalogService.GetByCourseId(id));
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

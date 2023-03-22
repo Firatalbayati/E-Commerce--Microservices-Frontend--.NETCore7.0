@@ -21,18 +21,12 @@ namespace ECommerceMicroservicesFrontend.Services
             _httpClient = httpClient;
         }
 
-        public async Task<bool> DeletePhoto(string photoUrl)
-        {
-            var response = await _httpClient.DeleteAsync($"photos?photoUrl={photoUrl}");
-            return response.IsSuccessStatusCode;
-        }
-
         public async Task<PhotoViewModel> UploadPhoto(IFormFile photo)
         {
             if (photo is null || photo.Length <= 0)
                 return null;
 
-                                                    //AspNetCoreAPI.jpg
+                                               //AspNetCoreAPI.jpg
             var randonFilename = $"{Guid.NewGuid().ToString()}{Path.GetExtension(photo.FileName)}";
 
             using var ms = new MemoryStream();
@@ -43,7 +37,7 @@ namespace ECommerceMicroservicesFrontend.Services
 
             multipartContent.Add(new ByteArrayContent(ms.ToArray()), "photo", randonFilename);
 
-            var response = await _httpClient.PostAsync("photos", multipartContent);
+            var response = await _httpClient.PostAsync("photos/Save", multipartContent);
 
             if (!response.IsSuccessStatusCode)
                 return null;
@@ -51,6 +45,12 @@ namespace ECommerceMicroservicesFrontend.Services
             var responseSuccess = await response.Content.ReadFromJsonAsync<Response<PhotoViewModel>>();
 
             return responseSuccess.Data;
+        }
+
+        public async Task<bool> DeletePhoto(string photoUrl)
+        {
+            var response = await _httpClient.DeleteAsync($"photos/Delete?photoUrl={photoUrl}");
+            return response.IsSuccessStatusCode;
         }
     }
 }

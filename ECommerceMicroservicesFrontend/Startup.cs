@@ -1,5 +1,6 @@
 ﻿using ECommerce.Shared.Services;
 using ECommerceMicroservicesFrontend.Handler;
+using ECommerceMicroservicesFrontend.Helpers;
 using ECommerceMicroservicesFrontend.Models;
 using ECommerceMicroservicesFrontend.Services;
 using ECommerceMicroservicesFrontend.Services.Interfaces;
@@ -35,6 +36,8 @@ namespace ECommerceMicroservicesFrontend
             services.AddAccessTokenManagement();
             services.AddHttpClient<IClientCredentialTokenService, ClientCredentialTokenService>();
             services.AddHttpClient<IIdentityService, IdentityService>();
+
+            services.AddSingleton<PhotoHelper>();
 
             services.AddScoped<ISharedIdentityService, SharedIdentityService>();
             services.AddScoped<ResourceOwnerPasswordTokenHandler>();
