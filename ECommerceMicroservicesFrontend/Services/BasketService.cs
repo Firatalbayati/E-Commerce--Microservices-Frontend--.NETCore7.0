@@ -13,11 +13,12 @@ namespace ECommerceMicroservicesFrontend.Services
     public class BasketService : IBasketService
     {
         private readonly HttpClient _httpClient;
+        private readonly IDiscountService _discountService;
 
-        public BasketService(HttpClient httpClient)
+        public BasketService(HttpClient httpClient, IDiscountService discountService)
         {
             _httpClient = httpClient;
-
+            _discountService = discountService;
         }
 
 
@@ -86,15 +87,32 @@ namespace ECommerceMicroservicesFrontend.Services
             return await CreateOrUpdate(basket);
         }
 
-        public Task<bool> ApplyDiscount(string discountCode)
+        public async Task<bool> ApplyDiscount(string discountCode)
         {
-            throw new NotImplementedException();
+            await CancelApplyDiscount();
+
+            var basket = await Get();
+            if (basket is null)
+                return false;
+
+            var hasDiscount = await _discountService.GetDiscount(discountCode);
+            if (hasDiscount is null)
+                return false;
+
+            basket.ApplyDiscount(hasDiscount.Code, hasDiscount.Rate);
+            await CreateOrUpdate(basket);
+            return true;
         }
 
-        public Task<bool> CancelApplyDiscount()
+        public async Task<bool> CancelApplyDiscount()
         {
-            throw new NotImplementedException();
-        }
+            var basket = await Get();
+            if (basket is null || basket.DiscountCode is null)
+                return false;
 
+            basket.CancelDiscount();
+            await CreateOrUpdate(basket);
+            return true;
+        }
     }
 } 
