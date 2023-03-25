@@ -5,6 +5,8 @@ using ECommerceMicroservicesFrontend.Helpers;
 using ECommerceMicroservicesFrontend.Models;
 using ECommerceMicroservicesFrontend.Services;
 using ECommerceMicroservicesFrontend.Services.Interfaces;
+using ECommerceMicroservicesFrontend.Validators;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -38,7 +40,7 @@ namespace ECommerceMicroservicesFrontend
             services.AddScoped<ISharedIdentityService, SharedIdentityService>();
             services.AddScoped<ResourceOwnerPasswordTokenHandler>();
             services.AddScoped<ClientCredentialTokenHandler>();
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CourseCreateInputValidator>());
             services.AddHttpClientServices(Configuration);
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, opts =>
             {
