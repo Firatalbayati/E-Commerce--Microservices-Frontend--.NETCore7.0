@@ -30,23 +30,23 @@ namespace ECommerceMicroservicesFrontend.Controllers
         public async Task<IActionResult> Checkout(CheckoutInfoInput checkoutInfoInput)
         {
             //1.Synchrony 
-            var orderStatus = await _orderService.CreateOrder(checkoutInfoInput);
+            //var orderStatus = await _orderService.CreateOrder(checkoutInfoInput);
 
             //2.Asynchrony
-            // var orderSuspend = await _orderService.SuspendOrder(checkoutInfoInput);
+             var orderSuspend = await _orderService.SuspendOrder(checkoutInfoInput);
 
-            if (!orderStatus.IsSuccessful)
+            if (!orderSuspend.IsSuccessful)
             {
                 var basket = await _basketService.Get();
                 ViewBag.basket = basket;
-                ViewBag.error = orderStatus.Error;
+                ViewBag.error = orderSuspend.Error;
                 return View();
             }
             //1.Synchrony
-            return RedirectToAction(nameof(SuccessfulCheckout), new { orderId = orderStatus.OrderId });
+            //return RedirectToAction(nameof(SuccessfulCheckout), new { orderId = orderStatus.OrderId });
 
             //2.Asynchrony
-            //return RedirectToAction(nameof(SuccessfulCheckout), new { orderId = new Random().Next(1, 1000) });
+            return RedirectToAction(nameof(SuccessfulCheckout), new { orderId = new Random().Next(1, 1000) }); //OrderId dönmeyeceğiz ondan dolayı random fake Id verdik
         }
 
         public IActionResult SuccessfulCheckout(int orderId)
@@ -55,6 +55,10 @@ namespace ECommerceMicroservicesFrontend.Controllers
             return View();
         }
 
+        public async Task<IActionResult> CheckoutHistory()
+        {
+            return View(await _orderService.GetOrder());
+        }
 
     }
 }
