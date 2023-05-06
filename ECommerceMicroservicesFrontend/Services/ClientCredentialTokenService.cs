@@ -29,7 +29,7 @@ namespace ECommerceMicroservicesFrontend.Services
 
         public async Task<string> GetToken()
         {
-            var currentToken = await _clientAccessTokenCache.GetAsync("WebClientToken");
+            var currentToken = await _clientAccessTokenCache.GetAsync("WebClientToken",null);
 
             if (currentToken != null)
                 return currentToken.AccessToken;
@@ -55,7 +55,7 @@ namespace ECommerceMicroservicesFrontend.Services
             if (newToken.IsError)
                 throw newToken.Exception;
 
-            await _clientAccessTokenCache.SetAsync("WebClientToken", newToken.AccessToken, newToken.ExpiresIn);
+            await _clientAccessTokenCache.SetAsync("WebClientToken", newToken.AccessToken, newToken.ExpiresIn,null);
 
             return newToken.AccessToken;
         }
