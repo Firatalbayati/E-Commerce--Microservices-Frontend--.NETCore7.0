@@ -4,9 +4,8 @@
 </dl>
 <br>
 <br>
-<br>
 <a href="https://github.com/Firatalbayati/E-Commerce--Microservices-Frontend--.NETCore7.0/assets/47159612/dea6a0bf-bd99-4d77-bbe5-f15ab8eefd29" target="_blank">
-<img width="350" height="250" style="border-radius:2%;" src="https://github.com/Firatalbayati/E-Commerce--Microservices-Frontend--.NETCore7.0/assets/47159612/dea6a0bf-bd99-4d77-bbe5-f15ab8eefd29"/>
+<img width="350" height="220" style="border-radius:2%;" src="https://github.com/Firatalbayati/E-Commerce--Microservices-Frontend--.NETCore7.0/assets/47159612/dea6a0bf-bd99-4d77-bbe5-f15ab8eefd29"/>
 </a>
 <a href="https://github.com/Firatalbayati/E-Commerce--Microservices-Frontend--.NETCore7.0/assets/47159612/841b0c86-28bf-41ed-a25a-a1cebb5f25f0" target="_blank">
 <img width="350" height="250" style="border-radius:2%;" src="https://github.com/Firatalbayati/E-Commerce--Microservices-Frontend--.NETCore7.0/assets/47159612/841b0c86-28bf-41ed-a25a-a1cebb5f25f0"/>
