@@ -1,6 +1,6 @@
 <h2>Asp.Net Core MVC Service</h2>
 <dl>
-  <dd>UI Service that will display the data received from the <a href="https://github.com/Firatalbayati/E-Commerce--Microservices-Backend--.NETCore7.0">ECommerce--Microservices</a> Project to the user and be responsible for interacting with the user.</dd>
+  <dd>UI Service that will display the data received from the <a href="https://github.com/Firatalbayati/E-Commerce--Microservices-Backend--.NETCore7.0">ECommerce Microservices</a> Project to the user and be responsible for interacting with the user.</dd>
 </dl>
 <br>
 <br>
@@ -37,7 +37,7 @@
 <a href="https://github.com/Firatalbayati/E-Commerce--Microservices-Frontend--.NETCore7.0/assets/47159612/0c148134-4adb-424f-9ade-98d19902c4aa" target="_blank">
 <img width="350" height="220" style="border-radius:2%;" src="https://github.com/Firatalbayati/E-Commerce--Microservices-Frontend--.NETCore7.0/assets/47159612/0c148134-4adb-424f-9ade-98d19902c4aa"/>
 </a>
-<a href="https://github.com/Firatalbayati/E-Commerce--Microservices-Frontend--.NETCore7.0/assets/47159612/cc2c108d-354a-49bd-81ac-2cef6437c5c8" target="_blank">
-<img width="350" height="220" style="border-radius:2%;" src="https://github.com/Firatalbayati/E-Commerce--Microservices-Frontend--.NETCore7.0/assets/47159612/cc2c108d-354a-49bd-81ac-2cef6437c5c8"/>
+<a href="https://github.com/Firatalbayati/E-Commerce--Microservices-Frontend--.NETCore7.0/assets/47159612/71e7b6cb-ed15-490e-814f-3d94d8981169" target="_blank">
+<img width="350" height="220" style="border-radius:2%;" src="https://github.com/Firatalbayati/E-Commerce--Microservices-Frontend--.NETCore7.0/assets/47159612/71e7b6cb-ed15-490e-814f-3d94d8981169"/>
 </a>
 
